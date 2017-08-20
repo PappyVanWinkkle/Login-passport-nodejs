@@ -36,6 +36,19 @@ router.post('/login', passport.authenticate('local-login', {
   failureFlash: true
 }));
 
+/* google route */
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email']}));
+router.get('/auth/google/callback', passport.authenticate('google', {
+  successRedirect: '/profile',
+  failureRedirect: '/'
+}));
+/* github route */
+router.get('/auth/github', passport.authenticate('github'))
+router.get('/auth/github/callback', passport.authenticate('github', {
+  successRedirect: '/profile',
+  failureRedirect: '/'
+}));
+
 module.exports = router;
 
 function isLoggedIn(req, res, next) {
